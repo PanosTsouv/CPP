@@ -38,7 +38,7 @@ namespace image
             {
                 //read width,height and range and check them
                 inputFile >> width >> height >> maxNumberOfPixel;
-                if ((width < 0) || (height < 0))
+                if ((width <= 0) || (height <= 0))
                 {
                     std::cerr << "Dimensions of image can't be negative numbers" << std::endl;
                     return nullptr;
