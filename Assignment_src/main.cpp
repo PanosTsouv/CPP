@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <cstring>
-#include "ppm.h"
+#include "ppm/ppm.h"
 #include "array2d.h"
 #include "vec3.h"
 #include "image.h"
@@ -44,7 +44,7 @@ int main (int argc, char *argv[]) {
         exit(0);
     }
     
-    while (current < argc-1)                                            //exit loop if current show the last cmd argument
+    while (current < (argc-1))                                            //exit loop if current show the last cmd argument
     {
         atLeastOneFilter = false;                                       //make this variable false so we have at least one filter
         if(strcmp(argv[current], "-f") == 0)                            //check if filter start with -f
@@ -57,12 +57,12 @@ int main (int argc, char *argv[]) {
             {
                 cout << "Filter gamma detected" << endl;
                 current++;                                              //current show next cmd argument
-                if (isPositiveNumber(argv[current]) && atof(argv[current]) >= 0.5 && atof(argv[current]) <= 2.0)        //check if gamma filter's argument is a positive float number between 0.5-2
+				if (isPositiveNumber(argv[current]) && strtof(argv[current], NULL) >= 0.5 && strtof(argv[current], NULL) <= 2.0)        //check if gamma filter's argument is a positive float number between 0.5-2
                 {
                     #ifdef DEBUG
                         cout << "Gamma's number detected" << endl;
                     #endif
-                    Filter *fgamma = new FilterGamma(atof(argv[current]));  //filter gamma contains right data so we create a filter gamma
+						Filter *fgamma = new FilterGamma(strtof(argv[current], NULL));  //filter gamma contains right data so we create a filter gamma
                     *inputImage = *fgamma << *inputImage;                   //apply filter gamma to given image
                     delete fgamma;                                          //delte filter gama
                     current++;                                              //current show next cmd argument
@@ -87,7 +87,7 @@ int main (int argc, char *argv[]) {
                         #ifdef DEBUG
                             cout << "Linear's number detected" << endl;
                         #endif
-                        linearNumbers[count] = atof(argv[current]);         //put current argument inside array
+							linearNumbers[count] = strtof(argv[current], NULL);         //put current argument inside array
                         count++;                                            //increase count
                         current++;                                          //current show next cmd argument
                     }
@@ -111,7 +111,7 @@ int main (int argc, char *argv[]) {
                     #ifdef DEBUG
                         cout << "Blur's number detected" << endl;
                     #endif
-                    Filter *fblur = new FilterBlur(atof(argv[current]));    //if filter blur's data is right create a filter blur
+                    Filter *fblur = new FilterBlur(atoi(argv[current]));    //if filter blur's data is right create a filter blur
                     *inputImage = *fblur << *inputImage;                    //apply filter bluer to given image
                     delete fblur;                                           //delete filter
                     current++;                                              //current show next cmd argument
@@ -158,7 +158,7 @@ int main (int argc, char *argv[]) {
     {
         cout << "Save was successful" <<endl;
     }              
-    delete inputImage;                                                      //delete image
+    delete inputImage;                                                     //delete image
 }//end of main
 
 bool isPositiveNumber(const string& s)                                          

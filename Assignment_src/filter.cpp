@@ -38,14 +38,13 @@ Image FilterGamma::operator << (const Image & image)
 {
     Image newImage(image);                                         //copy of image which is given as argument
 
-    for (int i = 0; i < newImage.getHeight(); i++)                 //for every pixel of newImage(height give us the rows and width give us the columns)
+	for (unsigned int i = 0; i < newImage.getHeight(); i++)                 //for every pixel of newImage(height give us the rows and width give us the columns)
     {
-        for (int j = 0; j < newImage.getWidth(); j++)
+		for (unsigned int j = 0; j < newImage.getWidth(); j++)
         {
             newImage(j,i)[0] = pow(newImage(j,i)[0], gamma);       //Red color^gamma    |
             newImage(j,i)[1] = pow(newImage(j,i)[1], gamma);       //Green color^gamma  |=>(current pixel)^gamma
             newImage(j,i)[2] = pow(newImage(j,i)[2], gamma);       //Blue color^gamma   |
-            newImage(j,i) = (newImage(j,i)[0]*0.3 + newImage(j,i)[1]*0.59 + newImage(j,i)[2]*0.11);
         }
     }
     return newImage;                                               //return newImage
@@ -83,9 +82,9 @@ Image FilterLinear::operator << (const Image & image)
 {
     Image newImage(image);                                          //copy of image which is given as argument
 
-    for (int i = 0; i < newImage.getHeight(); i++)                  //for every pixel of newImage(height give us the rows and width give us the columns)
+	for (unsigned int i = 0; i < newImage.getHeight(); i++)                  //for every pixel of newImage(height give us the rows and width give us the columns)
     {
-        for (int j = 0; j < newImage.getWidth(); j++)
+		for (unsigned int j = 0; j < newImage.getWidth(); j++)
         {
             newImage(j,i) = a * newImage(j,i) + c;                  //(R,G,B)*(a1,a2,a3)+(c1,c2,c3)
 
@@ -109,7 +108,7 @@ FilterBlur::FilterBlur(int N):Array2D<float>(N,N)
     #endif
     this->N = N;                                                     //initialization of class attribute
     for (int i = 0; i < N*N; i++) {
-        buffer[i] = 1.0/(N*N);                                       //initialization of filter blur array N*N with value (1.0/N*N)
+        buffer[i] = 1.f/(N*N);                                       //initialization of filter blur array N*N with value (1.0/N*N)
     }
 }
 
@@ -124,9 +123,9 @@ Image FilterBlur::operator << (const image::Image & image)
 {
     Image inputImage(image);
     Image newImage(image.getWidth(), image.getHeight());
-    for (int i = 0; i < image.getHeight(); i++)
+	for (unsigned int i = 0; i < image.getHeight(); i++)
     {
-        for (int j = 0; j < image.getWidth(); j++)
+		for (unsigned int j = 0; j < image.getWidth(); j++)
         {
             for (int n = -N/2; n <= N/2; n++) {
 				for (int m = -N/2; m <= N/2; m++) {

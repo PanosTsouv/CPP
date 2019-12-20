@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "ppm.h"
+#include "ppm/ppm.h"
 #include "image.h"
 #include "vec3.h"
 
@@ -43,7 +43,7 @@ namespace image
                 float* array = ReadPPM(filename.c_str(), (int*) &width, (int*) &height);                    //if both of above statements are true then read the file and save the data
                 if (array != nullptr){                                                                      //if the file had data
                     buffer.clear();                                                                         //we use clear because image could have data inside
-                    for (int i = 0; i < width*height*3; i=i+3)                                              //for all triple of colors
+					for (unsigned int i = 0; i < width*height * 3; i = i + 3)                                              //for all triple of colors
                     {
                         buffer.push_back(Vec3<float>(*(array + i), *(array + i + 1), *(array + i + 2)));    //load every pixel in Image's buffer
                     }

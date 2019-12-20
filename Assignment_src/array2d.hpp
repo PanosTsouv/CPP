@@ -60,7 +60,7 @@ namespace math{
         if(width > 0 && height > 0)                                                                                 //if width and height are > 0 else return nothing
         {
             this->buffer.clear();                                                                                   //clear buffer which contains data because it could have data inside
-            for (int i = 0; i < width*height; i++) 
+            for (unsigned int i = 0; i < width*height; i++) 
             {
                 if (data_ptr != 0)                                                                                  //if data ponter = 0 means that we dont have given data so go to else and set data as zero
                 {
