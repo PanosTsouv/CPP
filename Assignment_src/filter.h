@@ -1,8 +1,10 @@
-#ifndef PURE_VIRTUAL_FUNCTIONS_
-#define PURE_VIRTUAL_FUNCTIONS_
+#ifndef FILTERS_
+#define FILTERS_
 #ifndef DEBUG
 //#define DEBUG
 #endif
+
+#include "image.h"
 
 class Filter
 {
@@ -25,6 +27,10 @@ class FilterGamma: public Filter
         ~FilterGamma();                                           //declaration of destructor
 
         image::Image operator << (const image::Image & image);    //declaration of operator
+
+        float getGamma();                                         //declaration of get method
+
+        void setGamma(float gamma);                               //declaration of set method
 };
 
 class FilterLinear: public Filter
@@ -40,6 +46,14 @@ class FilterLinear: public Filter
         ~FilterLinear();                                          //declaration of destructor
 
         image::Image operator << (const image::Image & image);    //declaration of operator
+
+        math::Vec3<float> getLinearTripleA();                      //declaration of get method
+
+        math::Vec3<float> getLinearTripleC();                      //declaration of get method
+
+        void setLinearTripleA(math::Vec3<float> a);                //declaration of set method
+
+        void setLinearTripleC(math::Vec3<float> c);                //declaration of set method
 };
 
 class FilterBlur: public Filter,public math::Array2D<float>
@@ -54,14 +68,16 @@ class FilterBlur: public Filter,public math::Array2D<float>
         ~FilterBlur();                                                      //declaration of destructor
 
         image::Image operator << (const image::Image & image);              //declaration of operator
+
+        int getN();                                                         //declaration of get method
+
+        void setN(int N);                                                   //declaration of set method
     protected:
         int checkTheBOundsOfArray(int current, int minValue, int maxValue); //declaration of method which check bounds
 };
 
 class FilterLaplace: public FilterBlur
 {
-    protected:
-        int N;                                                              //class attribute
     public:
         FilterLaplace();                                                    //declaration of default constructor
 
