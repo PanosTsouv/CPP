@@ -37,13 +37,16 @@ namespace image
 
     bool Image::load(const std::string & filename, const std::string & format)
     {
-        if (filename.find(format) != std::string::npos) {                                                   //check if filename contains given format
-            if(format.compare("ppm") == 0){                                                                 //check if format is ppm
-
+        if (filename.find(format) != std::string::npos)                                                     //check if filename contains given format
+        {
+            if(format.compare("ppm") == 0)                                                                  //check if format is ppm
+            {
                 float* array = ReadPPM(filename.c_str(), (int*) &width, (int*) &height);                    //if both of above statements are true then read the file and save the data
-                if (array != nullptr){                                                                      //if the file had data
+
+                if (array != nullptr)                                                                       //if the file had data
+                {
                     buffer.clear();                                                                         //we use clear because image could have data inside
-					for (unsigned int i = 0; i < width*height * 3; i = i + 3)                                              //for all triple of colors
+					for (unsigned int i = 0; i < width*height * 3; i = i + 3)                               //for all triple of colors
                     {
                         buffer.push_back(Vec3<float>(*(array + i), *(array + i + 1), *(array + i + 2)));    //load every pixel in Image's buffer
                     }
@@ -52,6 +55,7 @@ namespace image
                 }
                 else 
                 {
+                    delete array;                                                                           //delete array
                     cerr << "Cound not load file's data" << endl;                                           //print error message return false
                     return false;
                 }
@@ -87,7 +91,5 @@ namespace image
             return false;
         }
     }
-
-
 }//end namespace 
 
