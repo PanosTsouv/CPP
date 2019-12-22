@@ -17,7 +17,7 @@ namespace image
 
         if (!inputFile.is_open())                                                               //check if file is open
         {
-            std::cerr << "Could not open the file for reading" << filename << std::endl;        //print error message,close stream and return null
+            std::cerr << "Could not open the file for reading " << filename << std::endl;        //print error message,close stream and return null
             inputFile.close();
             return nullptr;
         }
@@ -61,14 +61,13 @@ namespace image
                     for (int i = 0; i < arraySize; ++i) { 
                         *(arrayData + i) = *(tempData + i)/ 255.f;                              //make the data float numbers range [0,1]
                     }
-                    
-                    delete[] tempData;                                                          //delete temp array from memory
+                    delete[] tempData;//delete temp array from memory
                 }
             }
         }
-        if(inputFile.good() == false)                                                           //check if any error occurs while we were reading drom file
+        if (inputFile.peek() != EOF || inputFile.fail() == true)                                //check if any error occurs while we were reading drom file
         {
-            std::cerr << "Could not read all data of file...Check if dimensions or max number of pixels are missing" << std::endl;       //print error message,close stream and return null
+            std::cerr << "Could not read all data of file...Check if dimensions or max number of pixels are missing or dimensions ara wrong" << std::endl;       //print error message,close stream and return null
             inputFile.close();
             return nullptr;
         }
@@ -81,7 +80,7 @@ namespace image
         std::ofstream outputFile(filename, std::ios::out | std::ios::binary | std::ios::trunc);
         if (!outputFile.is_open())                                                              //check if file is open
         {
-            std::cerr << "Could not open the file for writting" << filename << std::endl;       //print error message
+            std::cerr << "Could not open the file for writting " << filename << std::endl;       //print error message
             outputFile.close();                                                                 //close stream and return false
             return false;
         }
